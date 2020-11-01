@@ -68,6 +68,7 @@
   import DarkToggle from './DarkToggle';
   export default {
     name: 'WeatherCard',
+
     props: ['dailyData','id', 'location'],
     components: {
       DarkToggle
@@ -78,7 +79,7 @@
         imgAlt: '', //text for the weather icon 
         minTemp: '',//min temprature 
         maxTemp: '',//max temprature
-        temp: '',
+        temp: '', //current temprature
         uvi: '', 
         dewpoint: ''
       }

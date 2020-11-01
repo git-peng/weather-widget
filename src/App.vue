@@ -8,7 +8,7 @@
               <v-btn icon @click="searchButtonClick">Search</v-btn>
           </v-row>
           <Carousel :weatherData="weatherData" :location="location" :key="location" :hideDelimiter="hideDelimiter"/>
-          <BottomActionBar @click-event="handleChildCall" @current-event="getCurrent"/>
+          <BottomActionBar @click-event="handleChildCall" @current-event="setTodayWeatherData"/>
         </div>
         <!-- This dialog only for display error or alert messages -->
         <div class="text-center">
@@ -61,12 +61,14 @@ export default {
   },
 
   methods: {
+    //get coordinates from browser
     getCoordinates() {
       return new Promise(function(resolve, reject) {
         navigator.geolocation.getCurrentPosition(resolve, reject);
       });
     },
 
+    //get google location base on the search term or coordinates
     async getLocation() {
       if(this.search === '') {
         try {
@@ -93,6 +95,7 @@ export default {
       }
     },
 
+    //get 7 days weather data
     async getWeatherData() {
       try {
         let res = await axios.get("https://api.openweathermap.org/data/2.5/onecall?lat="
@@ -107,6 +110,7 @@ export default {
       }
     },
 
+    //get the current weather data
     async getCurrentWeatherData() {
       try {
         let res = await axios.get("https://api.openweathermap.org/data/2.5/weather?lat="+this.latitude+"&lon="+this.longitude+"&units=metric&appid="
@@ -127,7 +131,8 @@ export default {
       this.longitude=lng
     },
 
-    async getCurrent() {
+    //set up data with the current weather data
+    async setTodayWeatherData() {
       if(this.latitude === '' && this.longitude === '') {
           var position = await this.getCoordinates()
           this.setLatAndLng(position.coords.latitude, position.coords.longitude)
@@ -150,6 +155,7 @@ export default {
       this.hideDelimiter = true
     },
 
+    //populate all the useful values into weatherData
     setCurrentWeatherData(res) {
       this.weatherData=[];
       this.weatherData=[{
@@ -166,7 +172,7 @@ export default {
       console.log(this.weatherData);
     },
 
-    async getAllData() {
+    async setAllData() {
       if (this.search === '') {
         var position = await this.getCoordinates()
         this.setLatAndLng(position.coords.latitude, position.coords.longitude)
@@ -202,6 +208,7 @@ export default {
       })
       //clear search term
       this.search=''
+      //show the carousel delimiters when display 7 days data
       this.hideDelimiter = false
     },
 
@@ -210,7 +217,7 @@ export default {
         this.setErrorMessage("Please type a location to search.")
         return
       }
-      this.getAllData()
+      this.setAllData()
     },
 
     enterKeyPress(event) {
@@ -219,8 +226,9 @@ export default {
       }    
     },
 
+    //handle the call from the button action button to display local 7 days data
     handleChildCall() {
-      this.getAllData()
+      this.setAllData()
     },
 
     setErrorMessage(msg) {
@@ -231,7 +239,7 @@ export default {
   },
 
   mounted() {
-    this.getAllData()
+    this.setAllData()
   }
 };
 </script>

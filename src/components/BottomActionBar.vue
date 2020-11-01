@@ -1,7 +1,5 @@
 <template>
-  <v-bottom-navigation
-    color="primary"
-  >
+  <v-bottom-navigation color="primary">
   <v-tooltip top>
     <template v-slot:activator="{ on }">
      <v-btn v-on="on" @click="callGetCurrentFromParent">
@@ -26,8 +24,10 @@
 
 <script>
   export default {
+    name: 'BottomActionBar',
+
     props:['click-event'],
-    data () {
+    data() {
       return {
           value: 1
       }

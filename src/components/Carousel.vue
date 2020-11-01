@@ -22,6 +22,8 @@
 <script>
   import WeatherCard from './WeatherCard';
   export default {
+    name: 'WeatherCard',
+    
     props: ['location', 'weatherData', 'hideDelimiter'],
     components: {
       WeatherCard

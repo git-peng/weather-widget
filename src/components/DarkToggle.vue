@@ -22,11 +22,13 @@
 
 <script>
     export default {
-        methods: {
-            toggleMode() {
-                this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-            }
-        }
+      name:'DarkToggle',
+
+      methods: {
+          toggleMode() {
+              this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+          }
+      }
     }
 </script>
 
