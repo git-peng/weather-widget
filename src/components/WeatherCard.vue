@@ -40,7 +40,7 @@
     <v-list class="weather-info-list">
       <v-list-item class="list-item">
         <v-list-item-title>Wind</v-list-item-title>
-        <v-list-item-subtitle>{{dailyData.wind_speed}} meter/sec</v-list-item-subtitle>
+        <v-list-item-subtitle>{{dailyData.wind_speed}} M/S</v-list-item-subtitle>
       </v-list-item>
       <!-- current weather doesn't have uvi, so replace with the other information -->
       <v-list-item class="list-item" v-if="uvi">
